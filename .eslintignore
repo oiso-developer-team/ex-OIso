@@ -1,2 +1,6 @@
-resource/header.js
-.eslintrc.cjs
+!.vuepress/
+!.*rc.*
+.cache/
+.temp/
+build/
+dist/
