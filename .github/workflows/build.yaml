@@ -1,0 +1,55 @@
+---
+# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && startsWith( github.event.head_commit.message, 'VER' )
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: "npm"
+      - name: Install dependencies
+        run: npm install
+      - name: Config bot & tags
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git fetch origin --tags
+
+      - name: Build & tag
+        env:
+          MSG: ${{ toJSON(github.event.commits.*.message) }}
+        run: |
+          export VER=$(./scripts/tag.py)
+          npm run build
+          git add -f dist
+          HUSKY=0 git commit -m "Build $VER"
+          git tag $VER
+          echo "VER=$VER" >> $GITHUB_ENV
+
+      - name: Push preview
+        run: |
+          git push origin legacy:preview --tags -f
+
+      - name: Push latest
+        if: "!contains( env.VER, '-' )" # Neither `-pre` nor `-rc`
+        run: |
+          git push origin legacy:latest --tags -f
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.VER }}
+          body_path: src/resources/update-log.txt
+          prerelease: ${{ contains( env.VER, '-' ) }}
+          files: dist/ex-oiso.min.user.js
