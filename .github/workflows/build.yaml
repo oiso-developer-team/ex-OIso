@@ -53,3 +53,4 @@ jobs:
           body_path: src/update-log.txt
           prerelease: ${{ contains( env.VER, '-' ) }}
           files: dist/ex-oiso.min.user.js
+
