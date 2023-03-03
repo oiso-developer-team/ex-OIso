@@ -30,6 +30,7 @@ jobs:
         env:
           MSG: ${{ toJSON(github.event.commits.*.message) }}
         run: |
+          sudo chmod +x ./script/tag.py
           export VER=$(./script/tag.py)
           npm run build
           git add -f dist
