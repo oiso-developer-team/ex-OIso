@@ -50,6 +50,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.VER }}
-          body_path: src/resources/update-log.txt
+          body_path: src/update-log.txt
           prerelease: ${{ contains( env.VER, '-' ) }}
           files: dist/ex-oiso.min.user.js
