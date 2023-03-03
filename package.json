@@ -1,6 +1,6 @@
 {
   "name": "ex-oiso",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Tampermonkey addons for Luogu &amp; OIso / 为洛谷及 OIso 而生的 Tampermonkey 插件",
   "main": "index.js",
   "scripts": {
