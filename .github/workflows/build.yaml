@@ -30,7 +30,7 @@ jobs:
         env:
           MSG: ${{ toJSON(github.event.commits.*.message) }}
         run: |
-          export VER=$(./scripts/tag.py)
+          export VER=$(./script/tag.py)
           npm run build
           git add -f dist
           HUSKY=0 git commit -m "Build $VER"
