@@ -10,3 +10,4 @@ import re
 print(json.loads(open('./package.json').read())['version'])
 
 # thank for exlg's code
+ 
