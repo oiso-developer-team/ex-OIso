@@ -4,7 +4,9 @@
   "description": "Tampermonkey addons for Luogu &amp; OIso / 为洛谷及 OIso 而生的 Tampermonkey 插件",
   "main": "index.js",
   "scripts": {
-    "build": "node script/build.cjs"
+    "build": "node script/build.cjs",
+    "lint": "npx eslint --ext .ts,.tsx,.js,.jsx ./src",
+    "fix": "npx eslint --ext .ts,.tsx,.js,.jsx ./src --fix"
   },
   "repository": {
     "type": "git",
@@ -23,8 +25,12 @@
   "homepage": "https://github.com/oiso-developer-team/ex-OIso#readme",
   "devDependencies": {
     "eslint": "^8.35.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsdoc": "^40.0.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.9.0"
   },
   "dependencies": {

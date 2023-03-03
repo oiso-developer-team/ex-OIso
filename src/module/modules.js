@@ -1,1 +1,1 @@
-import './PostVote/index.js'
+import "./PostVote/index.js";
